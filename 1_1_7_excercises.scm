@@ -6,9 +6,6 @@
 (define (good-enough? guess x)
   (< (abs (- (square guess) x)) 0.001))
 
-(define (good-enough-better? guess x)
-  (= (improve guess x) guess))
-
 (define (average x y)
   (/ (+ x y) 2))
 
@@ -20,8 +17,8 @@
 	(else else-clause)))
 
 (define (new-sqrt-iter guess x)
-  ;new-if if you wnat to test 1.1.6
-  (if (good-enough-better? guess x)
+  ;new-if if you want to test 1.1.6
+  (if (good-enough? guess x)
     guess
     (new-sqrt-iter (improve guess x) x)))
 
@@ -47,22 +44,41 @@
 ; is unable to represent the differences between large numbers. The Algorithm might never terminate; because the square of the best guess will not be within 0.001 of the radicand and trying to 
 ; improve will yield the same guess.
 
+; improvement that stops when change is a very small fraction of guess
+(define (good-enough-better? guess x)
+  (< (abs (- (improve guess x) guess))
+     (* guess 0.001)))
 
+(define (sqrt-better guess x)
+  ;new-if if you want to test 1.1.6
+  (if (good-enough-better? guess x)
+    guess
+    (sqrt-better (improve guess x) x)))
 
+(define (sqrtb x)
+  (sqrt-better 1.0 x))
+
+(sqrtb 0.00002)
+; 0.00447
+(sqrtb 1000000000000)
+;1000000
 
 ;1.1.8
 (define (improve-cube guess x)
-  (/ (/ x (+ (square guess) (* 2 guess))) 3))
+  (/ (+ (/ x (square guess)) (* 2 guess)) 3))
 
+; another variant that only stops when improvement stops
+(define (good-enough-best? prev_guess guess)
+  (< (abs (/ (- prev_guess guess) guess)) 0.0001))
 
-(define (cube-iter guess x)
-(if (good-enough? guess x)
+(define (cube-iter prev_guess guess x)
+(if (good-enough-best? prev_guess guess)
   guess
-  (cube-iter (improve-cube guess x) x)))
+  (cube-iter guess (improve-cube guess x) x)))
 
-(define (cube x)
-  (cube-iter 1.0 x))
+(define (3root x)
+  (cube-iter 0.0 1.0 x))
 
-(cube 8)
+(3root 27)
 (sqrt 16)
 
