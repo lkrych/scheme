@@ -23,3 +23,19 @@
 (sqrt 9)
 (sqrt 16)
 (sqrt 21)
+
+; localize the subprocedures so that folks using sqrt don't have to worry about it
+; use lexical-scoping to capture value of x
+(define (sqrt2 x)
+  (define (good-enough? guess)
+  (< (abs (- (square guess) x)) 0.001))
+  (define (improve guess) (average guess (/ x guess)))
+  (define (sqrt-iter guess)
+    (if (good-enough? guess)
+    guess
+    (sqrt-iter (improve guess))))
+  (sqrt-iter 1.0))
+
+(sqrt2 9)
+(sqrt2 16)
+(sqrt2 21)
