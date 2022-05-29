@@ -28,6 +28,10 @@
         (else (f-iter (+ a (* 2 b) (* 3 c)) a b (- count 1)))))
     (f-iter 2 1 0 (- n 2)))
 
+;f(4)
+; (f-iter 2 1 0 2)
+; (f-iter 4 2 1 1)
+; (f-iter 11 4 2 0)
 (f-better 1) ;1
 (f-better 2) ;2
 (f-better 3) ;4
@@ -35,3 +39,5 @@
 (f-better 5) ;25
 (f-better 6) ;59
 (f-better 7) ;142
+
+;1.12
