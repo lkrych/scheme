@@ -41,3 +41,23 @@
 (f-better 7) ;142
 
 ;1.12
+;write a procedure that computes elements of Pascal's triangle by means of a recursive process
+(define (pascals_tri row col )
+    (cond ((= col 1) 1)
+        ((= row col) 1)
+        (else (+ 
+            (pascals_tri (- row 1) (- col 1)) 
+            (pascals_tri (- row 1) col)))))
+
+; define the base cases:
+; if col is 1, it is always 1
+; if row = col, it is always 1
+; otherwise to compute the row,col
+; sum the two numbers above it
+(pascals_tri 1 1) 
+(pascals_tri 2 1) 
+(pascals_tri 2 2) 
+(pascals_tri 3 2) 
+(pascals_tri 4 2) 
+(pascals_tri 5 2) 
+(pascals_tri 5 3) 
