@@ -93,4 +93,35 @@
   (let ((g ((if (< d 0) - +) (abs (gcd n d)))))
   (cons (/ n g) (/ d g))))
 
+; define a constructor and selector for defining a line segment
+; define make-segment, start-segment, end-segment, make-point, x-point, y-point, midpoint-segment
+
+(define (x-point p) (car p))
+(define (y-point p) (cdr p))
+(define (make-point x y) (cons x y))
+
+(define (print-point p)
+  (newline)
+  (display "(")
+  (display (x-point p))
+  (display ",")
+  (display (y-point p))
+  (display ")"))
+
+(define (start-segment s) (car s))
+(define (end-segment s) (cdr s))
+(define (make-segment start end) (cons start end))
+
+(define (midpoint-segment segment)
+  (define (average a b) (/ (+ a b) 2.0))
+  (let ((a (start-segment segment))
+	(b (end-segment segment)))
+    (make-point (average (x-point a)
+			 (x-point b))
+		(average (y-point a)
+			 (y-point b)))))
+;test
+(define seg (make-segment (make-point 2 3)
+			  (make-point 10 15)))
+(print-point (midpoint-segment seg))
 
