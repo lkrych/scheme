@@ -124,4 +124,17 @@
 (define seg (make-segment (make-point 2 3)
 			  (make-point 10 15)))
 (print-point (midpoint-segment seg))
+;2.4 - here is an alternative procedure representation of pairs
+; define cdr
+(define (cons x y)
+  (lambda (m) (m x y)))
+(define (car z)
+  (z (lambda (p q) p)))
+(define (cdr z)
+  (z (lambda (p q) q)))
+; (cons 1 2) = (lambda (m) (m 1 2))
+; (car(cons 1 2)) = lambda (lambda (p q) p) 1 2)
+(car (cons 1 2))
+; (cdr (cons 1 2)) = lambda (lambda (p q) q) 1 2)
+(cdr (cons 1 2))
 
