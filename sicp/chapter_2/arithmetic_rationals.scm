@@ -89,6 +89,8 @@
 
 (print-rat (add-rat one-third one-third)); 2/3
 ; exercise 2.1 - define a better version of make-rat that handles both positive and negative arguments
-
+(define (make-rat n d)
+  (let ((g ((if (< d 0) - +) (abs (gcd n d)))))
+  (cons (/ n g) (/ d g))))
 
 
