@@ -124,6 +124,9 @@
 (define seg (make-segment (make-point 2 3)
 			  (make-point 10 15)))
 (print-point (midpoint-segment seg))
+
+;2.3 - todo
+
 ;2.4 - here is an alternative procedure representation of pairs
 ; define cdr
 (define (cons x y)
@@ -137,4 +140,33 @@
 (car (cons 1 2))
 ; (cdr (cons 1 2)) = lambda (lambda (p q) q) 1 2)
 (cdr (cons 1 2))
+
+;2.5 - todo
+
+;2.6 - todo
+
+;section 2.1.4
+;problem 2.7
+
+(define (make-interval a b) (cons a b))
+(define (upper-bound interval) (max (car interval) (cdr interval)))
+(define (lower-bound interval) (min (car interval) (cdr interval)))
+
+(define (add-interval x y)
+  (make-interval (+ (lower-bound x) (lower-bound y))
+		 (+ (upper-bound x) (upper-bound y))))
+
+(define (mul-interval x y)
+  (let ((p1 (* (lower-bound x) (lower-bound y)))
+	(p2 (* (lower-bound x) (upper-bound y)))
+	(p3 (* (upper-bound x) (lower-bound y)))
+	(p4 (* (upper-bound x) (upper-bound y))))
+    (make-interval (min p1 p2 p3 p4)
+		   (max p1 p2 p3 p4))))
+
+(define (div interval x y)
+  (mul-interval
+    x
+    (make-interval (/ 1.0 (upper-bound y))
+		   (/ 1.0 (lower-bound y)))))
 
