@@ -125,7 +125,27 @@
 			  (make-point 10 15)))
 (print-point (midpoint-segment seg))
 
-;2.3 - todo
+;2.3 - implement a representation of rectangles in a plane
+
+(define (make-rectangle bottom-left top-right) (cons bottom-left top-right))
+(define (bottom-left rect) (car rect))
+(define (top-right rect) (cdr rect))
+(define (width rect)
+  (- (car(top-right rect) (car (bottom-left rect)))))
+(define (height rect)
+  (- (cdr(top-right rect) (cdr (bottom-left rect)))))
+(define (bottom-right rect)
+  (cons (+ (bottom-left rect) (width rect))
+	(cdr (bottom-left rect))))
+(define (top-left rect)
+  (cons (car (bottom-left rect))
+	(+ (cdr (bottom-left rect) (height rect)))))
+(define (perimeter rect)
+  (+ (* 2 (width rect))
+     (* 2 (height rect))))
+(define (area rect)
+  (* (width rect)
+     (height rect)))
 
 ;2.4 - here is an alternative procedure representation of pairs
 ; define cdr
