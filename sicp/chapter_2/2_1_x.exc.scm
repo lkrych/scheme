@@ -168,16 +168,13 @@
   (if (= n 0)
     1
     (* b (expt b (- n 1)))))
-; will iteratively divide p by d until p is no longer a multiple of d.
-(define (count-0-remainder-divisions n p d)
-  (if (= (remainder p d) 0)
-	 (count-0-remainder-divisions (+ n 1) (/ p d) d)
-	 n))
-
-(define (cons a b)
-  (* (expt a 2) (expt b 3)))
-(define (car z) (count-0-remainder-divisions 0 z 2))
-(define (cdr z) (count-0-remainder-divisions 0 z 3))
+(define (largest-power-of a z)
+  (if (= (remainder z a ) 0)
+    (+ 1 (largest-power-of a (/ z a)))
+    0))
+(define (cons a b) (* (expt a 2) (expt b 3)))
+(define (car z) (largest-power-of 2 z))
+(define (cdr z) (largest-power-of 3 z))
 
 ;2.6 - todo
 
