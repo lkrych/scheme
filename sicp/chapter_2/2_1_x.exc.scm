@@ -161,7 +161,23 @@
 ; (cdr (cons 1 2)) = lambda (lambda (p q) q) 1 2)
 (cdr (cons 1 2))
 
-;2.5 - todo
+;2.5 - represent pairs of non-negative integers using only numbers and arithmetic operations if we represent the pair as the integer that is the product of 2^a*b^3
+
+;this is an example of how weird we can make the implementation of certain primitives
+(define (expt b n)
+  (if (= n 0)
+    1
+    (* b (expt b (- n 1)))))
+; will iteratively divide p by d until p is no longer a multiple of d.
+(define (count-0-remainder-divisions n p d)
+  (if (= (remainder p d) 0)
+	 (count-0-remainder-divisions (+ n 1) (/ p d) d)
+	 n))
+
+(define (cons a b)
+  (* (expt a 2) (expt b 3)))
+(define (car z) (count-0-remainder-divisions 0 z 2))
+(define (cdr z) (count-0-remainder-divisions 0 z 3))
 
 ;2.6 - todo
 
